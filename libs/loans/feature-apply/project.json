@@ -1,0 +1,20 @@
+{
+  "name": "loans-feature-apply",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "prefix": "loans",
+  "sourceRoot": "libs/loans/feature-apply/src",
+  "tags": ["scope:loans", "type:lib"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": { "lintFilePatterns": ["libs/loans/feature-apply/**/*.ts"] }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": { "jestConfig": "libs/loans/feature-apply/jest.config.ts" }
+    }
+  }
+}

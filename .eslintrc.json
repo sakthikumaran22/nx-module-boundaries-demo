@@ -1,0 +1,85 @@
+{
+  "root": true,
+  "ignorePatterns": ["**/*"],
+  "plugins": ["@nx"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {
+        "@nx/enforce-module-boundaries": [
+          "error",
+          {
+            "enforceBuildableLibDependencyCheck": true,
+            "allowCircularSelfDependency": true,
+            "banTransitiveDependencies": true,
+            "depConstraints": [
+              {
+                "sourceTag": "*",
+                "notDependOnLibsWithTags": ["type:e2e"]
+              },
+
+              {
+                "sourceTag": "type:app",
+                "onlyDependOnLibsWithTags": [
+                  "type:lib",
+                  "type:shared",
+                  "!type:e2e"
+                ]
+              },
+              {
+                "sourceTag": "type:lib",
+                "onlyDependOnLibsWithTags": [
+                  "type:lib",
+                  "type:shared",
+                  "!type:app",
+                  "!type:e2e"
+                ]
+              },
+              {
+                "sourceTag": "type:shared",
+                "onlyDependOnLibsWithTags": [
+                  "type:shared",
+                  "!type:lib",
+                  "!type:app",
+                  "!type:e2e"
+                ]
+              },
+              {
+                "sourceTag": "type:e2e",
+                "onlyDependOnLibsWithTags": ["type:shared"]
+              },
+
+              {
+                "sourceTag": "scope:payments",
+                "onlyDependOnLibsWithTags": ["scope:payments", "scope:shared"],
+                "notDependOnLibsWithTags": ["scope:loans", "scope:kyc"]
+              },
+              {
+                "sourceTag": "scope:loans",
+                "onlyDependOnLibsWithTags": ["scope:loans", "scope:shared"],
+                "notDependOnLibsWithTags": ["scope:payments", "scope:kyc"]
+              },
+              {
+                "sourceTag": "scope:accounts",
+                "onlyDependOnLibsWithTags": ["scope:accounts", "scope:shared"]
+              },
+              {
+                "sourceTag": "scope:kyc",
+                "onlyDependOnLibsWithTags": ["scope:kyc", "scope:shared"],
+                "notDependOnLibsWithTags": [
+                  "scope:payments",
+                  "scope:loans",
+                  "scope:accounts"
+                ]
+              },
+              {
+                "sourceTag": "scope:shared",
+                "onlyDependOnLibsWithTags": ["scope:shared"]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

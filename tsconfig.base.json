@@ -1,0 +1,69 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "lib": ["ES2022", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@banking/shared/ui-design-system": [
+        "libs/shared/ui-design-system/src/index.ts"
+      ],
+      "@banking/shared/ui-forms": [
+        "libs/shared/ui-forms/src/index.ts"
+      ],
+      "@banking/shared/util-formatters": [
+        "libs/shared/util-formatters/src/index.ts"
+      ],
+      "@banking/shared/util-validators": [
+        "libs/shared/util-validators/src/index.ts"
+      ],
+      "@banking/shared/data-access-http": [
+        "libs/shared/data-access-http/src/index.ts"
+      ],
+      "@banking/payments/feature-transfer": [
+        "libs/payments/feature-transfer/src/index.ts"
+      ],
+      "@banking/payments/feature-transaction-history": [
+        "libs/payments/feature-transaction-history/src/index.ts"
+      ],
+      "@banking/payments/data-access": [
+        "libs/payments/data-access/src/index.ts"
+      ],
+      "@banking/loans/feature-apply": [
+        "libs/loans/feature-apply/src/index.ts"
+      ],
+      "@banking/loans/feature-repayment": [
+        "libs/loans/feature-repayment/src/index.ts"
+      ],
+      "@banking/loans/data-access": [
+        "libs/loans/data-access/src/index.ts"
+      ],
+      "@banking/accounts/feature-dashboard": [
+        "libs/accounts/feature-dashboard/src/index.ts"
+      ],
+      "@banking/accounts/feature-settings": [
+        "libs/accounts/feature-settings/src/index.ts"
+      ],
+      "@banking/accounts/data-access": [
+        "libs/accounts/data-access/src/index.ts"
+      ],
+      "@banking/kyc/feature-onboarding": [
+        "libs/kyc/feature-onboarding/src/index.ts"
+      ],
+      "@banking/kyc/data-access": [
+        "libs/kyc/data-access/src/index.ts"
+      ]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

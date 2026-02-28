@@ -1,0 +1,27 @@
+{
+  "name": "banking-portal-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/banking-portal-e2e/src",
+  "tags": ["scope:banking-portal", "type:e2e"],
+  "implicitDependencies": ["banking-portal"],
+  "targets": {
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/banking-portal-e2e/cypress.config.ts",
+        "testingType": "e2e",
+        "devServerTarget": "banking-portal:serve:development",
+        "exit": true
+      },
+      "configurations": {
+        "production": { "devServerTarget": "banking-portal:serve:production" }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": { "lintFilePatterns": ["apps/banking-portal-e2e/**/*.ts"] }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "shared-data-access-http",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "prefix": "banking-shared",
+  "sourceRoot": "libs/shared/data-access-http/src",
+  "tags": ["scope:shared", "type:shared"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": { "lintFilePatterns": ["libs/shared/data-access-http/**/*.ts"] }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": { "jestConfig": "libs/shared/data-access-http/jest.config.ts" }
+    }
+  }
+}

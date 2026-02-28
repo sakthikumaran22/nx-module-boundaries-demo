@@ -1,0 +1,20 @@
+{
+  "name": "shared-util-validators",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "prefix": "banking-shared",
+  "sourceRoot": "libs/shared/util-validators/src",
+  "tags": ["scope:shared", "type:shared"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": { "lintFilePatterns": ["libs/shared/util-validators/**/*.ts"] }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": { "jestConfig": "libs/shared/util-validators/jest.config.ts" }
+    }
+  }
+}
