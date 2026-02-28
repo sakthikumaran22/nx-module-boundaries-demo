@@ -1,13 +1,15 @@
-import { Injectable, signal, computed } from '@angular/core';
-import { AccountsApiService } from './accounts-api.service';
-import { BankAccount, AccountHolder } from './accounts.models';
+import { Injectable, signal, computed, inject } from "@angular/core";
+import { AccountsApiService } from "./accounts-api.service";
+import { BankAccount, AccountHolder } from "./accounts.models";
 
 /**
  * @public — exported from index.ts
  * Single public interface for all accounts domain operations.
  */
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 export class AccountsFacade {
+  private accountsApi = inject(AccountsApiService);
+
   private readonly _accounts = signal<BankAccount[]>([]);
   private readonly _selectedAccount = signal<BankAccount | null>(null);
   private readonly _holder = signal<AccountHolder | null>(null);
@@ -20,13 +22,13 @@ export class AccountsFacade {
   readonly isLoading = computed(() => this._isLoading());
   readonly error = computed(() => this._error());
   readonly totalBalance = computed(() =>
-    this._accounts().reduce((sum, acc) => sum + acc.balance, 0)
+    this._accounts().reduce((sum, acc) => sum + acc.balance, 0),
   );
   readonly activeAccounts = computed(() =>
-    this._accounts().filter((a) => a.status === 'ACTIVE')
+    this._accounts().filter((a) => a.status === "ACTIVE"),
   );
 
-  constructor(private accountsApi: AccountsApiService) {}
+  constructor() {}
 
   loadAccounts(customerId: string): void {
     this._isLoading.set(true);
@@ -36,7 +38,7 @@ export class AccountsFacade {
         this._isLoading.set(false);
       },
       error: () => {
-        this._error.set('Failed to load accounts.');
+        this._error.set("Failed to load accounts.");
         this._isLoading.set(false);
       },
     });

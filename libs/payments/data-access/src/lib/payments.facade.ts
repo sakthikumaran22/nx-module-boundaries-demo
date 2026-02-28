@@ -1,11 +1,7 @@
-import { Injectable, signal, computed } from '@angular/core';
-import { Observable, tap } from 'rxjs';
-import { PaymentsApiService } from './payments-api.service';
-import {
-  Payment,
-  TransferRequest,
-  TransferResponse,
-} from './payments.models';
+import { Injectable, signal, computed, inject } from "@angular/core";
+import { Observable, tap } from "rxjs";
+import { PaymentsApiService } from "./payments-api.service";
+import { Payment, TransferRequest, TransferResponse } from "./payments.models";
 
 export interface PaymentsState {
   readonly transactions: Payment[];
@@ -24,8 +20,10 @@ export interface PaymentsState {
  *
  * This is the Facade pattern applied at the domain boundary level.
  */
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 export class PaymentsFacade {
+  private paymentsApi = inject(PaymentsApiService);
+
   // --- Signals-based state (internal) ---
   private readonly _transactions = signal<Payment[]>([]);
   private readonly _selectedPayment = signal<Payment | null>(null);
@@ -38,10 +36,10 @@ export class PaymentsFacade {
   readonly isLoading = computed(() => this._isLoading());
   readonly error = computed(() => this._error());
   readonly pendingTransactions = computed(() =>
-    this._transactions().filter((t) => t.status === 'PENDING')
+    this._transactions().filter((t) => t.status === "PENDING"),
   );
 
-  constructor(private paymentsApi: PaymentsApiService) {}
+  constructor() {}
 
   loadTransactionHistory(accountId: string): void {
     this._isLoading.set(true);
@@ -53,9 +51,9 @@ export class PaymentsFacade {
         this._isLoading.set(false);
       },
       error: (err) => {
-        this._error.set('Failed to load transaction history.');
+        this._error.set("Failed to load transaction history.");
         this._isLoading.set(false);
-        console.error('[PaymentsFacade]', err);
+        console.error("[PaymentsFacade]", err);
       },
     });
   }
@@ -69,10 +67,10 @@ export class PaymentsFacade {
           this._isLoading.set(false);
         },
         error: () => {
-          this._error.set('Transfer failed. Please try again.');
+          this._error.set("Transfer failed. Please try again.");
           this._isLoading.set(false);
         },
-      })
+      }),
     );
   }
 

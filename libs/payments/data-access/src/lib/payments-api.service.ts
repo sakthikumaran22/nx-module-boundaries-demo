@@ -1,18 +1,20 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { ApiHttpService } from '@banking/shared/data-access-http';
-import { Payment, TransferRequest, TransferResponse } from './payments.models';
+import { Injectable, inject } from "@angular/core";
+import { Observable } from "rxjs";
+import { ApiHttpService } from "@banking/shared/data-access-http";
+import { Payment, TransferRequest, TransferResponse } from "./payments.models";
 
-const PAYMENTS_API = '/api/v1/payments';
+const PAYMENTS_API = "/api/v1/payments";
 
 /**
  * Internal HTTP service for the payments domain.
  * This class is NOT exported from the library's index.ts.
  * External consumers must go through PaymentsFacade.
  */
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 export class PaymentsApiService {
-  constructor(private api: ApiHttpService) {}
+  private api = inject(ApiHttpService);
+
+  constructor() {}
 
   initiateTransfer(request: TransferRequest): Observable<TransferResponse> {
     return this.api.post<TransferResponse>(`${PAYMENTS_API}/transfer`, request);

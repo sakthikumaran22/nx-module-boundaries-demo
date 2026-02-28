@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 export type ButtonVariant = 'primary' | 'secondary' | 'danger' | 'ghost';
 export type ButtonSize = 'sm' | 'md' | 'lg';
@@ -14,18 +14,20 @@ export type ButtonSize = 'sm' | 'md' | 'lg';
 @Component({
   selector: 'banking-shared-button',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   template: `
     <button
       [class]="buttonClasses"
       [disabled]="disabled || loading"
       [type]="type"
       (click)="clicked.emit($event)"
-    >
-      <span *ngIf="loading" class="spinner" aria-hidden="true"></span>
+      >
+      @if (loading) {
+        <span class="spinner" aria-hidden="true"></span>
+      }
       <ng-content />
     </button>
-  `,
+    `,
   styles: [`
     button {
       border: none;

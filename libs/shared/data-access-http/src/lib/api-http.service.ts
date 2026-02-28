@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Injectable, inject } from "@angular/core";
+import { HttpClient, HttpParams } from "@angular/common/http";
+import { Observable } from "rxjs";
 
 export interface ApiRequestOptions {
   params?: Record<string, string | number | boolean>;
@@ -14,9 +14,11 @@ export interface ApiRequestOptions {
  * This service does NOT contain any domain-specific logic.
  * Domain services inject this and build their own typed request methods on top.
  */
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 export class ApiHttpService {
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
+
+  constructor() {}
 
   get<T>(url: string, options?: ApiRequestOptions): Observable<T> {
     let params = new HttpParams();

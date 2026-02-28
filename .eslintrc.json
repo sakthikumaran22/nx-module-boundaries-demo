@@ -1,15 +1,21 @@
 {
   "root": true,
-  "ignorePatterns": ["**/*"],
+  "ignorePatterns": ["node_modules", "dist", ".nx/cache"],
   "plugins": ["@nx"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "project": ["tsconfig.base.json", "tsconfig.json"],
+        "sourceType": "module",
+        "ecmaVersion": 2022
+      },
       "rules": {
         "@nx/enforce-module-boundaries": [
           "error",
           {
-            "enforceBuildableLibDependencyCheck": true,
+            "enforceBuildableLibDependency": true,
             "allowCircularSelfDependency": true,
             "banTransitiveDependencies": true,
             "depConstraints": [
